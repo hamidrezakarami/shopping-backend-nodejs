@@ -1,1 +1,1 @@
-# shopping-backend-nodejs
+# shopping-backend-nodejs-cockroach
