@@ -7,6 +7,7 @@ dotenv.config({ path: "./config/config.env" });
 require("./app/config/db.config");
 
 const goods = require("./app/routes/goods.routes");
+const cards = require("./app/routes/card.routes");
 
 const app = express();
 
@@ -34,6 +35,7 @@ if (process.env.NODE_ENV === "development") {
 
 // mounts routes
 app.use("/goods", goods);
+app.use("/cards", cards);
 
 // start server Configuration
 const PORT = 3000;
