@@ -3,10 +3,20 @@ const client = require("../config/db.config");
 
 
 exports.getUserCards = asyncHandler(async (req, res, next) => {
-    const { id } = reg.params
+    const { id } = req.params
     await client.query(
-        `SELECT * FROM card WHERE useremail= $1`,
+        `SELECT * FROM cards WHERE useremail= $1`,
         [id],
+        (err, result) => {
+            const { rows } = result;
+            if (!err) res.status(200).json(rows);
+        }
+    );
+});
+
+exports.getCards = asyncHandler(async (req, res, next) => {
+    await client.query(
+        `SELECT * FROM cards`,
         (err, result) => {
             const { rows } = result;
             if (!err) res.status(200).json(rows);
