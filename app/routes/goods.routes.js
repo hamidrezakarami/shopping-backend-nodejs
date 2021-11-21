@@ -6,8 +6,10 @@ const {
   deleteGood,
   getSingleGood,
   updateGood,
+  getCardsGoods
 } = require("../controllers/goods.controller");
 
 router.get("/", getGoods).post("/", createGood).put("/", updateGood);
 router.get("/:id", getSingleGood).delete("/:id", deleteGood);
+router.get("/cardsgoods/:id", getCardsGoods);
 module.exports = router;

@@ -12,6 +12,22 @@ exports.getGoods = asyncHandler(async (req, res, next) => {
   );
 });
 
+exports.getCardsGoods = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+  await client.query(
+    `SELECT 
+      g.*, c.useremail 
+    FROM cards c 
+    JOIN good_card gc ON c.cardid  = gc.cardid 
+    JOIN goods g ON gc.goodid  = g.goodid 
+    WHERE c.cardid = $1`,
+    [id],
+    (err, result) => {
+      const { rows } = result;
+      if (!err) res.status(200).json(rows);
+    }
+  )
+})
 exports.getSingleGood = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   await client.query(
