@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 const path = require("path");
 const colors = require("colors");
+const cors = require("cors");
 dotenv.config({ path: "./config/config.env" });
 require("./app/config/db.config");
 
@@ -11,22 +12,28 @@ const cards = require("./app/routes/card.routes");
 
 const app = express();
 
+const corsOpts = {
+  origin: '*',
 
-app.use((req, res, next) => {
-  // res.setHeader("Access-Control-Allow-Origin", process.env.FRONTEND_APP_HOST);
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "X-Requested-With,content-type"
-  );
-  res.setHeader("Access-Control-Allow-Credentials", true);
+  methods: [
+    'GET',
+    'POST',
+    'OPTIONS',
+    'PUT',
+    'PATCH',
+    'DELETE'
+  ],
 
-  next();
-});
+  allowedHeaders: [
+    'Content-Type',
+    'application/json',
+    'text/plain',
+    '*/*'
+  ],
+};
 
+
+app.use(cors(corsOpts));
 app.use(express.json());
 
 if (process.env.NODE_ENV === "development") {
